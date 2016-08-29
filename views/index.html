@@ -1,0 +1,24 @@
+{% extends 'views/base/base.html' %}
+
+{% block content %}
+  <h1 class="home-title">Home Page</h1>
+  {% if user %}
+    <h3>Welcome, {{ user }}</h3>
+    <button id="info-btn">获取用户数据</button>
+  {% endif %}
+  <script>
+    const button = document.querySelector('#info-btn')
+    if (button) {
+      button.addEventListener('click', (e) => {
+        e.preventDefault()
+        fetch('/api/userInfo', {
+          credentials: 'include'
+        }).then((response) => {
+          return response.json()
+        }).then((data) => {
+          console.log(data)
+        })
+      }, false)
+    }
+  </script>
+{% endblock %}

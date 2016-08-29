@@ -1,0 +1,79 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "微软雅黑";
+}
+
+a {
+  text-decoration: none;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 0 30px;
+  background: #03A9F4;
+  box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.2)
+}
+
+header nav a {
+  color: #fff;
+}
+header nav a:hover {
+  text-decoration: underline;
+}
+
+/*home page*/
+.home-title {
+  padding-left: 20px;
+  margin-top: 30px;
+}
+
+/* login */
+form {
+  width: 300px;
+  margin: 120px auto 0;
+  padding: 30px 20px 20px;
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+}
+form:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+form input {
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 16px;
+}
+form input[type=text], form input[type=password] {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #ddd;
+}
+form input[type=text]:focus, form input[type=password]:focus {
+  border-bottom: 2px solid #ec407a;
+}
+form input[type=submit] {
+  float: right;
+  padding: 8px 24px;
+  margin-top: 20px;
+  background: #e91e63;
+  color: #fff;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.21);
+  border-radius: 2px;
+}
+
+form input[type=submit]:hover {
+  background: #ec407a;
+}
