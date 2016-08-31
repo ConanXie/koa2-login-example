@@ -35,12 +35,25 @@ header nav a:hover {
 }
 
 /* login */
+
+@keyframes show-form {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 form {
   width: 300px;
   margin: 120px auto 0;
   padding: 30px 20px 20px;
   box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.25);
   border-radius: 2px;
+  animation: show-form 0.6s ease-in-out forwards;
 }
 form:after {
   content: '';
@@ -58,7 +71,7 @@ form input[type=text], form input[type=password] {
   display: block;
   width: 100%;
   height: 40px;
-  margin-bottom: 18px;
+  margin-bottom: 22px;
   border-bottom: 1px solid #ddd;
 }
 form input[type=text]:focus, form input[type=password]:focus {
@@ -66,7 +79,7 @@ form input[type=text]:focus, form input[type=password]:focus {
 }
 form input[type=submit] {
   float: right;
-  padding: 8px 24px;
+  padding: 8px 20px;
   margin-top: 20px;
   background: #e91e63;
   color: #fff;
