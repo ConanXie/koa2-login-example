@@ -2,6 +2,9 @@ import Router from 'koa-router'
 
 const route = new Router()
 
+// database model
+import userModel from '../../model/user'
+
 route.get('/', async (ctx, next) => {
   let data
   if (ctx.session.user) {
@@ -23,13 +26,36 @@ route.get('/login', async (ctx, next) => {
 route.post('/login', async (ctx, next) => {
   console.log(ctx.request.body)
   const { user, password } = ctx.request.body
-  if (user !== 'conan') {
-    ctx.body = 'user not exist'
-  } else if (password !== '111') {
-    ctx.body = 'password error'
-  } else {
-    ctx.session.user = '1'
+  const login = (user, pw) => {
+    return new Promise((resolve, reject) => {
+      userModel.findOne({ name: user }, (err, user) => {
+        if (err) {
+          reject(err)
+        } else {
+          if (user) {
+            if (user.password === pw) {
+              resolve({ code: 0, msg: 'success', id: user._id })
+            } else {
+              resolve({ code: 102, msg: 'password error' })
+            }
+          } else {
+            resolve({ code: 101, msg: 'user not exist' })
+          }
+        }
+      })
+    })
+  }
+  let data
+  try {
+    data = await login(user, password)
+  } catch (e) {
+    throw e
+  }
+  if (!data.code) {
+    ctx.session.user = data.id
     ctx.redirect('/')
+  } else {
+    ctx.body = data.msg
   }
 })
 
