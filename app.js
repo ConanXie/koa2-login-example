@@ -30,6 +30,9 @@ routes(app)
 // static
 app.use(serve('static'))
 
+// mongodb
+import './model/config'
+
 app.listen(3010, () => {
   console.log(`Listening on 3010`)
 })
