@@ -34,6 +34,61 @@ header nav a:hover {
   margin-top: 30px;
 }
 
+section.user {
+  width: 800px;
+  margin: 30px auto 0;
+  padding: 28px 0 8px 28px;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px 2px rgba(50, 50, 50, 0.2);
+  animation: show-form 0.6s ease-in-out forwards;
+}
+section.user header {
+  height: 60px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+section.user header span.image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  margin-right: 30px;
+  font-size: 38px;
+  color: #fff;
+  background-color: #eee;
+  border-radius: 50%;
+}
+section.user header h3 {
+  font-weight: normal;
+}
+section.user footer {
+  display: flex;
+  height: 40px;
+  margin-top: 120px;
+  justify-content: flex-end;
+  align-items: center;
+}
+section.user footer button, section.user footer a {
+  padding: 6px 20px;
+  font-family: inherit;
+  font-size: 16px;
+  color: #333;
+  transition: background-color 0.3s;
+}
+section.user footer button {
+  border: none;
+  outline: none;
+  background: #fff;
+  color: #03A9F4;
+}
+section.user footer button:hover, section.user footer a:hover {
+  background-color: #eee;
+}
+section.user footer button:active, section.user footer a:active {
+  background-color: #ccc;
+}
 /* login */
 
 @keyframes show-form {
@@ -47,13 +102,16 @@ header nav a:hover {
   }
 }
 
-form {
-  width: 300px;
+.form-section {
+  width: 350px;
   margin: 120px auto 0;
-  padding: 30px 20px 20px;
+  /*padding: 0 20px;*/
   box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.25);
   border-radius: 2px;
   animation: show-form 0.6s ease-in-out forwards;
+}
+form {
+  padding: 30px 20px;
 }
 form:after {
   content: '';
@@ -66,21 +124,30 @@ form input {
   font-family: inherit;
   font-size: 16px;
 }
-form input[type=text], form input[type=password] {
+form .text-input {
   box-sizing: border-box;
   display: block;
   width: 100%;
   height: 40px;
-  margin-bottom: 22px;
+  margin-bottom: 30px;
   border-bottom: 1px solid #ddd;
 }
-form input[type=text]:focus, form input[type=password]:focus {
+form .text-input::-webkit-input-placeholder {
+  color: #888;
+}
+form .text-input::-moz-placeholder {
+  color: #888;
+}
+form .text-input::-ms-input-placeholder {
+  color: #888;
+}
+form .text-input:focus {
   border-bottom: 2px solid #ec407a;
 }
 form input[type=submit] {
   float: right;
-  padding: 8px 20px;
-  margin-top: 20px;
+  padding: 6px 18px;
+  /*margin-top: 20px;*/
   background: #e91e63;
   color: #fff;
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.21);
@@ -89,4 +156,16 @@ form input[type=submit] {
 
 form input[type=submit]:hover {
   background: #ec407a;
+}
+.form-section .footer {
+  display: flex;
+  height: 48px;
+  padding: 0 20px;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #eee;
+}
+.form-section .footer a {
+  color: #bbb;
+  font-size: 12px;
 }
