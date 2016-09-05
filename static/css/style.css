@@ -160,7 +160,7 @@ form input[type=submit]:hover {
 .form-section .footer {
   display: flex;
   height: 48px;
-  padding: 0 20px;
+  padding: 0 12px;
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid #eee;
