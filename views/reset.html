@@ -1,0 +1,22 @@
+{% extends 'views/base/base.html' %}
+
+{% block content %}
+  <div class="form-section">
+    <form action="/reset" method="post" autocomplete="off">
+      <input type="password" name="pass1" placeholder="密码" class="text-input" required>
+      <input type="password" name="pass2" placeholder="确认密码" class="text-input" required>
+      <input type="submit" value="确定">
+    </form>
+  </div>
+  <script>
+    const form = document.querySelector('form')
+    form.addEventListener('submit', (e) => {
+      e.preventDefault()
+      if (form.pass1.value !== form.pass2.value) {
+        alert('密码不一致')
+      } else {
+        form.submit()
+      }
+    }, false)
+  </script>
+{% endblock %}

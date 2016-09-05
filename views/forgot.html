@@ -1,0 +1,10 @@
+{% extends 'views/base/base.html' %}
+
+{% block content %}
+  <div class="form-section">
+    <form action="/forgot" method="post" autocomplete="off">
+      <input type="email" name="email" placeholder="邮箱" class="text-input" required>
+      <input type="submit" value="发送">
+    </form>
+  </div>
+{% endblock %}

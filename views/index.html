@@ -2,9 +2,17 @@
 
 {% block content %}
   <h1 class="home-title">Home Page</h1>
-  {% if user %}
-    <h3>Welcome, {{ user }}</h3>
-    <button id="info-btn">获取用户数据</button>
+  {% if name %}
+    <section class="user">
+      <header>
+        <span class="image">{{name.slice(0, 1).toUpperCase()}}</span>
+        <h3>Welcome, {{ name }}</h3>
+      </header>
+      <footer>
+        <button id="info-btn">获取数据</button>
+        <a href="/modify">修改密码</a>
+      </footer>
+    </section>
   {% endif %}
   <script>
     const button = document.querySelector('#info-btn')

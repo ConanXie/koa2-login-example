@@ -2,14 +2,14 @@
 
 {% block content %}
   <div class="form-section">
-    <form action="/login" method="post" autocomplete="off">
+    <form action="/signup" method="post" autocomplete="off">
       <input type="email" name="email" placeholder="邮箱" class="text-input" required>
+      <input type="text" name="user" placeholder="用户名" class="text-input" required>
       <input type="password" name="password" placeholder="密码" class="text-input" required>
-      <input type="submit" value="登录">
+      <input type="submit" value="注册">
     </form>
     <div class="footer">
-      <a href="/forgot">Forgot password?</a>
-      <a href="/signup">Create an account</a>
+      <a href="/login">Login</a>
     </div>
   </div>
 {% endblock %}
