@@ -1,0 +1,39 @@
+{
+  "name": "koa2-login-example",
+  "version": "1.0.0",
+  "description": "koa2 login demo which uses generic-session",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "koa2",
+    "router",
+    "session"
+  ],
+  "author": "ConanXie",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.3.0",
+    "koa": "^2.0.0-alpha.6",
+    "koa-bodyparser": "^3.2.0",
+    "koa-convert": "^1.2.0",
+    "koa-generic-session": "^1.11.3",
+    "koa-redis": "^2.1.2",
+    "koa-router": "^7.0.1",
+    "koa-static": "^3.0.0",
+    "koa-views": "^5.0.2",
+    "mongoose": "^4.5.10",
+    "nodemailer": "^2.5.0",
+    "nodemailer-smtp-transport": "^2.6.0",
+    "nodemailer-wellknown": "^0.1.10",
+    "nunjucks": "^2.4.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.14.0",
+    "babel-polyfill": "^6.13.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-stage-0": "^6.5.0"
+  }
+}
