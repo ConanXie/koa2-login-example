@@ -15,23 +15,23 @@
   "author": "ConanXie",
   "license": "MIT",
   "dependencies": {
-    "bcryptjs": "^2.3.0",
+    "bcryptjs": "^2.4.0",
     "koa": "^2.0.0-alpha.7",
     "koa-bodyparser": "^3.2.0",
     "koa-convert": "^1.2.0",
-    "koa-generic-session": "^1.11.3",
-    "koa-redis": "^2.1.2",
+    "koa-generic-session": "^1.11.4",
+    "koa-redis": "^2.1.3",
     "koa-router": "^7.0.1",
     "koa-static": "^3.0.0",
-    "koa-views": "^5.1.2",
-    "mongoose": "^4.6.5",
-    "nodemailer": "^2.6.4",
+    "koa-views": "^5.2.0",
+    "mongoose": "^4.7.5",
+    "nodemailer": "^2.7.0",
     "nodemailer-smtp-transport": "^2.7.2",
     "nodemailer-wellknown": "^0.2.0",
-    "nunjucks": "^2.5.2"
+    "nunjucks": "^3.0.0"
   },
   "devDependencies": {
-    "babel-core": "^6.18.0",
+    "babel-core": "^6.21.0",
     "babel-preset-es2015": "^6.18.0"
   }
 }
