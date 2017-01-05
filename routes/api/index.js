@@ -11,13 +11,13 @@ const getInfo = (id) => {
       data = {
         name: '江户川柯南',
         age: 7,
-        favorite: ['足球']
+        favorites: ['足球']
       }
       break
     default:
       data = {
         name: 'conan',
-        favorite: ['Soccer']
+        favorites: ['Soccer']
       }
   }
   return new Promise((resolve, reject) => {

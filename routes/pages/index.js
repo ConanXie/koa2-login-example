@@ -132,15 +132,15 @@ route.post('/signup', async (ctx, next) => {
       if (user) {
         const option = {
           address: email,
-          subject: '账号激活',
+          subject: 'Account activation',
           html: `
             <h1>A koa2 demo</h1>
-            <p>你需要点击已下链接激活你的账号：<a href="${host}:${port}/activation/${hash}">${host}:${port}/activation/${hash}</a></p>
+            <p>Activate your account via <a href="${host}:${port}/activation/${hash}">${host}:${port}/activation/${hash}</a></p>
           `
         }
         try {
           const response = await sendMail(option)
-          ctx.body = 'activation email has sended, check your new email'
+          ctx.body = 'activation email has sent, check your new email'
         } catch (error) {
           ctx.body = 'your email not available'
         }
@@ -206,15 +206,15 @@ route.post('/forgot', async (ctx, next) => {
     if (result) {
       const option = {
         address: email,
-        subject: '找回密码',
+        subject: 'Retrieve password',
         html: `
           <h1>A koa2 demo</h1>
-          <p>点击链接来设置新密码：<a href="${host}:${port}/findpass/${hash}">${host}:${port}/findpass/${hash}</a></p>
+          <p>Set new password via <a href="${host}:${port}/findpass/${hash}">${host}:${port}/findpass/${hash}</a></p>
         `
       }
       try {
         const response = await sendMail(option)
-        ctx.body = 'email has sended, check your new email'
+        ctx.body = 'email has sent, check your new email'
       } catch (error) {
         ctx.body = 'your email not available'
       }
@@ -258,7 +258,7 @@ route.post('/reset', async (ctx, next) => {
     return ctx.body = 'password required'
   }
   if (pass1 !== pass2) {
-    return ctx.body = 'password input error'
+    return ctx.body = 'incorrect password'
   }
   const data = await new Promise((resolve, reject) => {
     Find.findOne({ verify }).exec().then((find) => {
