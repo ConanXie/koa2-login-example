@@ -22,7 +22,7 @@ $ npm i yarn@latest -g
 
 When those packages in `package.json` have installed, run this command to start the demo
 ```
-$ node --harmony-async-await index.js
+$ npm start
 ```
 If you want launch it with `pm2`, run the command like that:
 ```
