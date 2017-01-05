@@ -11,7 +11,7 @@ Change the `email` object with your email data
 3. the password your email provided for third parties
 
 ## Start
-This project needs Node.js v7.0.0 or later versions and MongoDB.
+This project needs Node.js v7.0.0(or later versions), MongoDB and Redis.
 ```
 $ yarn install
 ```
