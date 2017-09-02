@@ -1,8 +1,6 @@
-import mongoose from 'mongoose'
-import bcrypt from 'bcryptjs'
+import mongoose from './config'
+import { hashSync } from 'bcryptjs'
 
-// use native Promise
-mongoose.Promise = global.Promise
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
@@ -20,16 +18,21 @@ const userSchema = new Schema({
   }
 })
 
+/**
+ * Use the hash password in database
+ */
 userSchema.pre('save', function (next) {
-  if (!this.isModified('password')) return next()
+  if (!this.isModified('password')) {
+    return next()
+  }
   // hash password
-  const hash = bcrypt.hashSync(this.password, 10)
-  this.password = hash
+  this.password = hashSync(this.password, 10)
   next()
 })
-userSchema.methods.storePass = function (pass) {
+
+userSchema.methods.changePass = function (pass) {
   this.password = pass
   this.save()
 }
 
-export default mongoose.model('user', userSchema)
+export default mongoose.model('User', userSchema)

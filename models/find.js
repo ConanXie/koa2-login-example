@@ -1,6 +1,5 @@
-import mongoose from 'mongoose'
-// use native Promise
-mongoose.Promise = global.Promise
+import mongoose from './config'
+
 const Schema = mongoose.Schema
 
 const findSchema = new Schema({
@@ -14,12 +13,14 @@ const findSchema = new Schema({
 })
 
 findSchema.pre('save', function (next) {
-  if (this.isModified('status')) next()
+  if (this.isModified('status')) {
+    return next()
+  }
 
-  const nextDay = new Date()
-  nextDay.setDate(nextDay.getDate() + 1)
-  this.deadline = nextDay
+  const deadline = new Date()
+  deadline.setDate(deadline.getDate() + 1)
+  this.deadline = deadline
   next()
 })
 
-export default mongoose.model('find', findSchema)
+export default mongoose.model('Find', findSchema)
