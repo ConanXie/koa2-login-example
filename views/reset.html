@@ -3,9 +3,9 @@
 {% block content %}
   <div class="form-section">
     <form action="/reset" method="post" autocomplete="off">
-      <input type="password" name="pass1" placeholder="password" class="text-input" required>
-      <input type="password" name="pass2" placeholder="confirm password" class="text-input" required>
-      <input type="submit" value="submit">
+      <input type="password" name="pass1" placeholder="Password" class="text-input" required>
+      <input type="password" name="pass2" placeholder="Confirm password" class="text-input" required>
+      <input type="submit" value="Change">
     </form>
   </div>
   <script>
@@ -13,7 +13,7 @@
     form.addEventListener('submit', (e) => {
       e.preventDefault()
       if (form.pass1.value !== form.pass2.value) {
-        alert('password do not match')
+        alert(`Password doesn't match the confirmation.`)
       } else {
         form.submit()
       }

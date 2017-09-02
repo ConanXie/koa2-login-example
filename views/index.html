@@ -1,32 +1,37 @@
 {% extends 'views/base/base.html' %}
 
 {% block content %}
-  <h1 class="home-title">Home Page</h1>
+  {% include 'views/base/header.html' %}
+
   {% if name %}
     <section class="user">
       <header>
-        <span class="image">{{name.slice(0, 1).toUpperCase()}}</span>
+        <span class="avatar">{{name.slice(0, 1).toUpperCase()}}</span>
         <h3>Welcome, {{ name }}</h3>
       </header>
+      <p class="line"></p>
       <footer>
-        <button id="info-btn">Fetch data</button>
-        <a href="/modify">Modify Password</a>
+        <button id="fetch">Fetch data</button>
+        <a href="/update">Change Password</a>
       </footer>
     </section>
+    <script>
+      const button = document.querySelector('#fetch')
+      if (button) {
+        button.addEventListener('click', async e => {
+          e.preventDefault()
+          try {
+            const res = await fetch('/api/line', { credentials: 'include' })
+            const { line } = await res.json()
+            document.querySelector('.line').innerHTML = line
+            document.querySelector('footer').style.display = 'none'
+          } catch (err) {
+            console.error(err)
+          }
+        }, false)
+      }
+    </script>
+  {% else %}
+    <h1 class="home-title">Welcome to here 😄</h1>
   {% endif %}
-  <script>
-    const button = document.querySelector('#info-btn')
-    if (button) {
-      button.addEventListener('click', (e) => {
-        e.preventDefault()
-        fetch('/api/userInfo', {
-          credentials: 'include'
-        }).then((response) => {
-          return response.json()
-        }).then((data) => {
-          console.log(data)
-        })
-      }, false)
-    }
-  </script>
 {% endblock %}
