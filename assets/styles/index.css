@@ -4,7 +4,7 @@
 }
 
 body {
-  font-family: "微软雅黑";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 a {
@@ -15,31 +15,31 @@ header nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
-  padding: 0 30px;
+  height: 56px;
+  padding: 0 24px;
   background: #03A9F4;
-  box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.2)
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
 }
 
 header nav a {
   color: #fff;
-}
-header nav a:hover {
-  text-decoration: underline;
+  font-size: 18px;
 }
 
 /*home page*/
 .home-title {
-  padding-left: 20px;
-  margin-top: 30px;
+  margin-top: 180px;
+  text-align: center;
 }
 
 section.user {
+  position: relative;
   width: 800px;
-  margin: 30px auto 0;
-  padding: 28px 0 8px 28px;
+  height: 280px;
+  margin: 120px auto 0;
+  padding: 24px;
   border-radius: 2px;
-  box-shadow: 0 2px 5px 2px rgba(50, 50, 50, 0.2);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
   animation: show-form 0.6s ease-in-out forwards;
 }
 section.user header {
@@ -48,33 +48,45 @@ section.user header {
   justify-content: flex-start;
   align-items: center;
 }
-section.user header span.image {
+section.user header span.avatar {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60px;
-  height: 60px;
-  margin-right: 30px;
-  font-size: 38px;
+  width: 48px;
+  height: 48px;
+  margin-right: 24px;
+  font-size: 28px;
   color: #fff;
-  background-color: #eee;
+  background-color: #ff5722;
   border-radius: 50%;
 }
 section.user header h3 {
   font-weight: normal;
+  color: #666;
+}
+section.user .line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 36px;
+  color: #333;
 }
 section.user footer {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
   display: flex;
-  height: 40px;
-  margin-top: 120px;
   justify-content: flex-end;
   align-items: center;
+  height: 40px;
 }
 section.user footer button, section.user footer a {
-  padding: 6px 20px;
+  padding: 10px 12px;
   font-family: inherit;
   font-size: 16px;
   color: #333;
+  border-radius: 2px;
   transition: background-color 0.3s;
 }
 section.user footer button {
@@ -94,24 +106,29 @@ section.user footer button:active, section.user footer a:active {
 @keyframes show-form {
   0% {
     opacity: 0;
-    transform: translateY(-30px);
+    top: 38%;
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    top: 40%;
   }
 }
 
 .form-section {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 350px;
-  margin: 120px auto 0;
-  /*padding: 0 20px;*/
-  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
   border-radius: 2px;
-  animation: show-form 0.6s ease-in-out forwards;
+  animation: show-form 450ms ease-in-out forwards;
 }
 form {
-  padding: 30px 20px;
+  padding: 38px 24px 24px;
+}
+form.login {
+  padding-bottom: 16px;
 }
 form:after {
   content: '';
@@ -128,29 +145,29 @@ form .text-input {
   box-sizing: border-box;
   display: block;
   width: 100%;
-  height: 40px;
-  margin-bottom: 30px;
-  border-bottom: 1px solid #ddd;
+  height: 30px;
+  margin-bottom: 36px;
+  border-bottom: 1px solid #e0e0e0;
 }
 form .text-input::-webkit-input-placeholder {
-  color: #888;
+  color: rgba(0, 0, 0, 0.3);
 }
 form .text-input::-moz-placeholder {
-  color: #888;
+  color: rgba(0, 0, 0, 0.3);
 }
 form .text-input::-ms-input-placeholder {
-  color: #888;
+  color: rgba(0, 0, 0, 0.3);
 }
 form .text-input:focus {
   border-bottom: 2px solid #ec407a;
 }
 form input[type=submit] {
   float: right;
-  padding: 6px 18px;
-  /*margin-top: 20px;*/
+  padding: 10px 18px;
+  line-height: 1;
   background: #e91e63;
   color: #fff;
-  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.21);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
   border-radius: 2px;
 }
 
@@ -159,13 +176,13 @@ form input[type=submit]:hover {
 }
 .form-section .footer {
   display: flex;
-  height: 48px;
-  padding: 0 12px;
+  height: 32px;
+  padding: 0 24px;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid #eee;
 }
 .form-section .footer a {
-  color: #bbb;
+  color: rgba(0, 0, 0, 0.3);
   font-size: 12px;
+  font-weight: 500;
 }
