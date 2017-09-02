@@ -1,14 +1,8 @@
 {
-  "evn": {
-    "es6": true,
-    "node": true
-  },
-  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module"
   },
-  "plugins": ["react"],
   "rules": {
     "strict": 0
   }
