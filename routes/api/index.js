@@ -1,36 +1,23 @@
 import Router from 'koa-router'
+import auth from '../auth'
 
-const route = new Router({
+const router = new Router({
   prefix: '/api'
 })
 
-const getInfo = (id) => {
-  let data
-  switch (id) {
-    case '1':
-      data = {
-        name: '江户川柯南',
-        age: 7,
-        favorites: ['足球']
-      }
-      break
-    default:
-      data = {
-        name: 'conan',
-        favorites: ['Soccer']
-      }
-  }
+const getLine = id => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(data)
-    }, 1500)
+      resolve({
+        line: '真実はいつも一つ'
+      })
+    }, 500)
   })
 }
 
-route.get('/userInfo', async (ctx, next) => {
-  console.log(ctx.session)
-  const data = await getInfo(ctx.session.user)
+router.get('/line', auth, async (ctx, next) => {
+  const data = await getLine(ctx.session.user)
   ctx.body = data
 })
 
-export default route
+export default router
