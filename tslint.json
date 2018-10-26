@@ -1,0 +1,10 @@
+{
+  "extends": ["tslint:latest"],
+  "rules": {
+    "semicolon": [true, "never"],
+    "no-console": false,
+    "interface-name": false,
+    "arrow-parens": false,
+    "ordered-imports": false
+  }
+}

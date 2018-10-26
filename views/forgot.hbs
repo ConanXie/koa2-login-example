@@ -1,10 +1,12 @@
-{% extends 'views/base/base.html' %}
+{{#> layout}}
 
-{% block content %}
-  <div class="form-section">
-    <form action="/forgot" method="post" autocomplete="off">
-      <input type="email" name="email" placeholder="Enter your email address" class="text-input" required>
-      <input type="submit" value="Send email">
-    </form>
-  </div>
-{% endblock %}
+{{#*inline "body"}}
+<div class="form-section">
+  <form action="/forgot" method="post" autocomplete="off">
+    <input type="email" name="email" placeholder="Enter your email address" class="text-input" required>
+    <input type="submit" value="Send email">
+  </form>
+</div>
+{{/inline}}
+
+{{/layout}}

@@ -1,34 +1,46 @@
 {
-  "name": "koa2-login-example",
-  "version": "1.0.0",
-  "description": "koa2 login demo which uses generic-session",
-  "main": "index.js",
+  "name": "koa-login-demo",
+  "version": "2.0.0",
+  "description": "koa login demo",
+  "main": "dist/app.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "koa2",
+    "koa",
     "router",
-    "session"
+    "demo"
   ],
   "author": "ConanXie",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "koa": "^2.3.0",
-    "koa-bodyparser": "^4.2.0",
-    "koa-generic-session": "^2.0.0",
-    "koa-redis": "^3.0.0",
-    "koa-router": "^7.2.1",
-    "koa-static": "^4.0.1",
-    "koa-views": "^6.0.2",
-    "mongoose": "^4.11.9",
-    "nodemailer": "^4.1.0",
-    "nunjucks": "^3.0.1"
+    "dotenv": "^6.1.0",
+    "handlebars": "^4.0.12",
+    "koa": "^2.6.1",
+    "koa-bodyparser": "^4.2.1",
+    "koa-generic-session": "^2.0.1",
+    "koa-redis": "^3.1.3",
+    "koa-router": "^7.4.0",
+    "koa-static": "^4.0.3",
+    "koa-views": "^6.1.4",
+    "mongoose": "^5.3.6",
+    "nodemailer": "^4.6.8"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1"
+    "@types/bcryptjs": "^2.4.2",
+    "@types/dotenv": "^4.0.3",
+    "@types/koa": "^2.0.46",
+    "@types/koa-bodyparser": "^5.0.1",
+    "@types/koa-generic-session": "^1.0.2",
+    "@types/koa-redis": "^3.0.2",
+    "@types/koa-router": "^7.0.32",
+    "@types/koa-static": "^4.0.0",
+    "@types/koa-views": "^2.0.3",
+    "@types/mongoose": "^5.2.20",
+    "@types/nodemailer": "^4.6.5",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.3"
   }
 }

@@ -1,120 +1,120 @@
-import crypto from 'crypto'
+import { createHmac } from "crypto"
+import { Context } from "koa"
 
-import User from '../../models/user'
-import Find from '../../models/find'
-import { port, host } from '../../config'
-import sendEmail from './sendEmail'
+import User from "../models/user"
+import Find from "../models/find"
+import sendEmail from "../../../utils/sendEmail"
 
-export const renderForgot = async ctx => {
-  if (ctx.session.user) {
-    ctx.redirect('/')
+export const renderForgot = async (ctx: Context) => {
+  if (ctx.session!.user) {
+    ctx.redirect("/")
     return
   }
-  await ctx.render('forgot')
+  await ctx.render("forgot")
 }
 
-export const forgot = async ctx => {
-  const { email } = ctx.request.body
+interface ForgotRequest {
+  email: string
+}
+
+export const forgot = async (ctx: Context) => {
+  const { email } = ctx.request.body as ForgotRequest
   const user = await User.findOne({ email })
   if (!user) {
-    ctx.throw(400, `Can't find that email, sorry.`)
-    return
+    ctx.throw(400, "Can't find that email, sorry.")
   }
 
   // create hash
-  const hmac = crypto.createHmac('sha256', 'findpass')
+  const hmac = createHmac("sha256", "findpass")
   hmac.update(email + Date.now())
-  const hash = hmac.digest('hex')
+  const verify = hmac.digest("hex")
 
-  const mainhost = /localhost/.test(host) ? `${host}:${port}` : host
-  const url = `${mainhost}/findpass/${hash}`
+  const mainhost = /localhost/.test(process.env.DOMAIN as string)
+    ? `${process.env.DOMAIN}:${process.env.PORT}`
+    : process.env.DOMAIN
+  const url = `${mainhost}/findpass/${verify}`
   const option = {
     address: email,
-    subject: 'Please reset your password',
+    subject: "Please reset your password",
+    // tslint:disable-next-line:object-literal-sort-keys
     html: `
       <h1>A demo based on koa</h1>
       <p>We heard that you lost your password. Sorry about that!</p>
       <p>But don’t worry! You can use the following link within the next day to reset your password:</p>
       <a href="${url}">${url}</a>
-    `
+    `,
   }
   try {
     const response = await sendEmail(option)
     // Save verify data to database when email sent.
-    const find = new Find({
-      user: user._id,
-      verify: hash
+    const doc = new Find({
+      user: user!._id,
+      verify,
     })
-    await find.save()
-    ctx.body = 'Check your email for a link to reset your password.'
+    await doc!.save()
+    ctx.body = "Check your email for a link to reset your password."
   } catch (error) {
-    console.log(error)
-    ctx.throw(400, 'Your email address is unavailable.')
+    // console.log(error)
+    ctx.throw(400, "Your email address is unavailable.")
   }
 }
 
-export const find = async (ctx, next) => {
+export const find = async (ctx: Context) => {
   const { verify } = ctx.params
   if (!/^[0-9a-z]{64}$/.test(verify)) {
-    ctx.throw(400, 'Verification code error')
-    return
+    ctx.throw(400, "Verification code error")
   }
 
   try {
-    await new Promise(async (resolve, reject) => {
-      const result = await Find.findOne({ verify })
-      if (result) {
-        const { status, deadline } = result
-        if (status) {
-          reject('This verification code has been used.')
-          return
-        }
-        if (Date.now() < deadline) {
-          resolve('successful')
-        } else {
-          reject('This verification code is outdated.')
-        }
-      } else {
-        reject('This verification code is unavailable.')
+    const result = await Find.findOne({ verify })
+    if (result) {
+      const { status, deadline } = result
+      if (status) {
+        ctx.throw(400, "This verification code has been used.")
       }
-    })
-    // Save verification code to session
-    ctx.session.find = verify
-    await ctx.render('reset')
-
+      if (Date.now() < deadline.getTime()) {
+        // Save verification code to session
+        ctx.session!.find = verify
+        await ctx.render("reset")
+      } else {
+        ctx.throw(400, "This verification code is outdated.")
+      }
+    } else {
+      ctx.throw(400, "This verification code is not available.")
+    }
   } catch (error) {
     ctx.throw(400, error)
   }
 }
 
-export const reset = async ctx => {
-  const { pass1, pass2 } = ctx.request.body
-  const verify = ctx.session.find
+interface ResetRequest {
+  pass1: string
+  pass2: string
+}
+
+export const reset = async (ctx: Context) => {
+  const { pass1, pass2 } = ctx.request.body as ResetRequest
+  const verify = ctx.session!.find
   if (!pass1 || !pass2) {
-    ctx.throw(400, 'The passwords are required.')
+    ctx.throw(400, "The passwords are required.")
     return
   }
   if (pass1 !== pass2) {
-    ctx.throw(400, `Password doesn't match the confirmation.`)
-    return
+    ctx.throw(400, "Password doesn't match the confirmation.")
   }
   try {
-    const saved = await new Promise(async (resolve, reject) => {
-      const find = await Find.findOne({ verify })
-      // The code is not be used, and not outdated.
-      if (find && !find.status && find.deadline > Date.now()) {
-        const user = await User.findOne({ _id: find.user })
-        user.changePass(pass1)
-        find.status = true
-        await find.save()
-        resolve('Password has been successfully updated.')
-      } else {
-        reject('This verification code is unavailable.')
-      }
-    })
-
-    ctx.session = null
-    ctx.body = saved
+    const doc = await Find.findOne({ verify })
+    // The code is not be used, and not outdated.
+    if (doc && !doc.status && doc.deadline.getTime() > Date.now()) {
+      const user = await User.findOne({ _id: doc.user })
+      user!.changePassword(pass1)
+      doc.status = true
+      await doc.save()
+      ctx.session = null
+      ctx.body = "Password has been successfully updated."
+    } else {
+      ctx.throw(400, "This verification code is not available.")
+    }
   } catch (error) {
     ctx.throw(400, error)
   }

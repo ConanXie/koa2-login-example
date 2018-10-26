@@ -1,28 +1,31 @@
-import mongoose from './config'
-import { hashSync } from 'bcryptjs'
+import { model, Schema, Document } from "mongoose"
+import { hashSync } from "bcryptjs"
 
-const Schema = mongoose.Schema
+export interface UserDocument extends Document {
+  email: string
+  name: string
+  password: string
+  status: boolean
+  verify: string
+  changePassword(password: string): void
+}
 
 const userSchema = new Schema({
   email: String,
   name: String,
   password: String,
-  verify: String,
   status: {
+    default: false,
     type: Boolean,
-    default: false
   },
-  joindate: {
-    type: Date,
-    default: Date.now
-  }
+  verify: String,
 })
 
 /**
- * Use the hash password in database
+ * Use a hash password in database
  */
-userSchema.pre('save', function (next) {
-  if (!this.isModified('password')) {
+userSchema.pre("save", function(this: UserDocument, next) {
+  if (!this.isModified("password")) {
     return next()
   }
   // hash password
@@ -30,9 +33,9 @@ userSchema.pre('save', function (next) {
   next()
 })
 
-userSchema.methods.changePass = function (pass) {
-  this.password = pass
+userSchema.methods.changePassword = function(this: UserDocument, password: string) {
+  this.password = password
   this.save()
 }
 
-export default mongoose.model('User', userSchema)
+export default model<UserDocument>("User", userSchema)

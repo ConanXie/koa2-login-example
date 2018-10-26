@@ -1,19 +1,26 @@
-import mongoose from './config'
+import { model, Schema, Document } from "mongoose"
 
-const Schema = mongoose.Schema
+export interface FindDocument extends Document {
+  deadline: Date
+  status: boolean
+  user: string
+  verify: string
+}
 
 const findSchema = new Schema({
+  deadline: Date,
+  status: {
+    default: false,
+    type: Boolean,
+  },
   user: Schema.Types.ObjectId,
   verify: String,
-  status: {
-    type: Boolean,
-    default: false
-  },
-  deadline: Date
+}, {
+  timestamps: true,
 })
 
-findSchema.pre('save', function (next) {
-  if (this.isModified('status')) {
+findSchema.pre("save", function(this: FindDocument, next) {
+  if (this.isModified("status")) {
     return next()
   }
 
@@ -23,4 +30,4 @@ findSchema.pre('save', function (next) {
   next()
 })
 
-export default mongoose.model('Find', findSchema)
+export default model<FindDocument>("Find", findSchema)

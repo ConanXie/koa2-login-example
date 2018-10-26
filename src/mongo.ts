@@ -1,9 +1,9 @@
-import mongoose from 'mongoose'
+import * as mongoose from "mongoose"
 
-mongoose.connect('mongodb://localhost/login-test', {
-  useMongoClient: true
+mongoose.connect(process.env.MONGODB as string, {
+  useFindAndModify: false,
+  useNewUrlParser: true,
+  user: process.env.MONGODB_USER,
+  // tslint:disable-next-line:object-literal-sort-keys
+  pass: process.env.MONGODB_PASS,
 })
-
-mongoose.Promise = global.Promise
-
-export default mongoose

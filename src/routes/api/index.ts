@@ -1,22 +1,20 @@
-import Router from 'koa-router'
-import auth from '../auth'
+import * as Router from "koa-router"
+import auth from "../../utils/auth"
 
 const router = new Router({
-  prefix: '/api'
+  prefix: "/api",
 })
 
-const getLine = id => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve({
-        line: '真実はいつも一つ'
-      })
-    }, 500)
-  })
-}
+const getLine = (id: string): Promise<object> => new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve({
+      line: "真実はいつも一つ",
+    })
+  }, 500)
+})
 
-router.get('/line', auth, async (ctx, next) => {
-  const data = await getLine(ctx.session.user)
+router.get("/line", auth, async ctx => {
+  const data = await getLine(ctx.session!.user)
   ctx.body = data
 })
 

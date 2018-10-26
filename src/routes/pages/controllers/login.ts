@@ -1,18 +1,37 @@
-import { compareSync } from 'bcryptjs'
+import { Context } from "koa"
+import { compareSync } from "bcryptjs"
 
-import User from '../../models/user'
+import User, { UserDocument } from "../models/user"
 
-export const renderLogin = async (ctx, next) => {
-  if (ctx.session.user) {
-    ctx.redirect('/')
+interface LoginRequest {
+  email: string
+  password: string
+}
+
+export const renderLogin = async (ctx: Context) => {
+  if (ctx.session!.user) {
+    ctx.redirect("/")
   } else {
-    await ctx.render('login')
+    await ctx.render("login")
   }
 }
 
-const checkInput = (email, pass) => {
+export const login = async (ctx: Context) => {
+  const { email, password } = ctx.request.body as LoginRequest
+
+  try {
+    const id = await checkInput(email, password)
+    ctx.session!.user = id
+    ctx.redirect("/")
+
+  } catch (error) {
+    ctx.throw(400, error)
+  }
+}
+
+function checkInput(email: string, pass: string): Promise<string> {
   return new Promise(async (resolve, reject) => {
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email }) as UserDocument
     if (user) {
       const { _id, status, password } = user
       if (status) {
@@ -20,26 +39,13 @@ const checkInput = (email, pass) => {
         if (isIdentical) {
           resolve(_id)
         } else {
-          reject('Incorrect email or password.')
+          reject("Incorrect email or password.")
         }
       } else {
-        reject('The email is not active.')
+        reject("The email is not active.")
       }
     } else {
-      reject('Incorrect email or password.')
+      reject("Incorrect email or password.")
     }
   })
-}
-
-export const login = async (ctx, next) => {
-  const { email, password } = ctx.request.body
-
-  try {
-    const id = await checkInput(email, password)
-    ctx.session.user = id
-    ctx.redirect('/')
-
-  } catch (error) {
-    ctx.throw(400, error)
-  }
 }

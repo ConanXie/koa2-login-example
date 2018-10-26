@@ -1,15 +1,17 @@
-{% extends 'views/base/base.html' %}
+{{#> layout}}
 
-{% block content %}
-  <div class="form-section">
-    <form class="login" action="/login" method="post" autocomplete="off">
-      <input type="email" name="email" placeholder="Email address" class="text-input" required>
-      <input type="password" name="password" placeholder="Password" class="text-input" required>
-      <input type="submit" value="Sign in">
-    </form>
-    <div class="footer">
-      <a href="/forgot">Forgot password?</a>
-      <a href="/signup">Create an account</a>
-    </div>
+{{#*inline "body"}}
+<div class="form-section">
+  <form class="login" action="/login" method="post" autocomplete="off">
+    <input type="email" name="email" placeholder="Email address" class="text-input" required>
+    <input type="password" name="password" placeholder="Password" class="text-input" required>
+    <input type="submit" value="Sign in">
+  </form>
+  <div class="footer">
+    <a href="/forgot">Forgot password?</a>
+    <a href="/signup">Create an account</a>
   </div>
-{% endblock %}
+</div>
+{{/inline}}
+
+{{/layout}}

@@ -1,37 +1,40 @@
-{% extends 'views/base/base.html' %}
+{{#> layout}}
 
-{% block content %}
-  {% include 'views/base/header.html' %}
+{{#*inline "body"}}
 
-  {% if name %}
-    <section class="user">
-      <header>
-        <span class="avatar">{{name.slice(0, 1).toUpperCase()}}</span>
-        <h3>Welcome, {{ name }}</h3>
-      </header>
-      <p class="line"></p>
-      <footer>
-        <button id="fetch">Fetch data</button>
-        <a href="/update">Change Password</a>
-      </footer>
-    </section>
-    <script>
-      const button = document.querySelector('#fetch')
-      if (button) {
-        button.addEventListener('click', async e => {
-          e.preventDefault()
-          try {
-            const res = await fetch('/api/line', { credentials: 'include' })
-            const { line } = await res.json()
-            document.querySelector('.line').innerHTML = line
-            document.querySelector('footer').style.display = 'none'
-          } catch (err) {
-            console.error(err)
-          }
-        }, false)
+{{#> header}}{{/header}}
+
+{{#if name}}
+<section class="user">
+  <header>
+    <span class="avatar">{{name}}</span>
+    <h3>Welcome, {{ name }}</h3>
+  </header>
+  <p class="line"></p>
+  <footer>
+    <button id="fetch">Fetch data</button>
+    <a href="/update">Change Password</a>
+  </footer>
+</section>
+<script>
+  const button = document.querySelector('#fetch')
+  if (button) {
+    button.addEventListener('click', async e => {
+      e.preventDefault()
+      try {
+        const res = await fetch('/api/line', { credentials: 'include' })
+        const { data } = await res.json()
+        document.querySelector('.line').innerHTML = data.line
+        document.querySelector('footer').style.display = 'none'
+      } catch (err) {
+        console.error(err)
       }
-    </script>
-  {% else %}
-    <h1 class="home-title">Welcome to here 😄</h1>
-  {% endif %}
-{% endblock %}
+    }, false)
+  }
+</script>
+{{else}}
+<h1 class="home-title">Welcome to here 😄</h1>
+{{/if}}
+{{/inline}}
+
+{{/layout}}

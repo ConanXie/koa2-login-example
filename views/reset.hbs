@@ -1,22 +1,24 @@
-{% extends 'views/base/base.html' %}
+{{#> layout}}
 
-{% block content %}
-  <div class="form-section">
-    <form action="/reset" method="post" autocomplete="off">
-      <input type="password" name="pass1" placeholder="Password" class="text-input" required>
-      <input type="password" name="pass2" placeholder="Confirm password" class="text-input" required>
-      <input type="submit" value="Change">
-    </form>
-  </div>
-  <script>
-    const form = document.querySelector('form')
-    form.addEventListener('submit', (e) => {
-      e.preventDefault()
-      if (form.pass1.value !== form.pass2.value) {
-        alert(`Password doesn't match the confirmation.`)
-      } else {
-        form.submit()
-      }
-    }, false)
-  </script>
-{% endblock %}
+{{#*inline "body"}}
+<div class="form-section">
+  <form action="/reset" method="post" autocomplete="off">
+    <input type="password" name="pass1" placeholder="Password" class="text-input" required>
+    <input type="password" name="pass2" placeholder="Confirm password" class="text-input" required>
+    <input type="submit" value="Change">
+  </form>
+</div>
+<script>
+  const form = document.querySelector('form')
+  form.addEventListener('submit', (e) => {
+    e.preventDefault()
+    if (form.pass1.value !== form.pass2.value) {
+      alert(`Password doesn't match the confirmation.`)
+    } else {
+      form.submit()
+    }
+  }, false)
+</script>
+{{/inline}}
+
+{{/layout}}

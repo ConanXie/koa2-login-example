@@ -1,16 +1,21 @@
-import User from '../../models/user'
+import { Context } from "koa"
+import User, { UserDocument } from "../models/user"
 
-export default async ctx => {
-  const data = {}
-  const { user } = ctx.session
-  // signed in
+interface Data {
+  name?: string
+  email?: string
+}
+
+export default async (ctx: Context) => {
+  const data: Data = {}
+  const { user } = ctx.session!
   if (user) {
-    const result = await User.findById(user)
-    !({
-      name: data.name,
-      email: data.email,
-      joindate: data.joindate
-    } = result)
+    // user info
+    const result = await User.findById(user) as UserDocument
+    if (result) {
+      data.name = result.name
+      data.email = result.email
+    }
   }
-  await ctx.render('index', data)
+  await ctx.render("index", data)
 }

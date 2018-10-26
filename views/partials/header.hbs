@@ -1,10 +1,10 @@
 <header>
   <nav>
     <a href="/">Home</a>
-    {% if name %}
-      <a href="/logout">Sign out</a>
-    {% else %}
-      <a href="/login">Sign in</a>
-    {% endif %}
+    {{#if name}}
+    <a href="/logout">Sign out</a>
+    {{else}}
+    <a href="/login">Sign in</a>
+    {{/if}}
   </nav>
 </header>

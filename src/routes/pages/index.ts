@@ -1,43 +1,43 @@
-import Router from 'koa-router'
+import * as Router from "koa-router"
 
-import auth from '../auth'
+import auth from "../../utils/auth"
 
 const router = new Router()
 
 // Controllers
-import home from './home'
-import { renderLogin, login } from './login'
-import { renderSignup, signup, active } from './signup'
-import { renderForgot, forgot, find, reset } from './forgot'
-import { renderUpdate, update } from './update'
+import homeController from "./controllers/home"
+import { login, renderLogin } from "./controllers/login"
+import { active, renderSignup, signup } from "./controllers/signup"
+import { renderUpdate, update } from "./controllers/update"
+import { find, forgot, renderForgot, reset } from "./controllers/forgot"
 
-router.get('/', home)
+router.get("/", homeController)
 
-router.get('/login', renderLogin)
+router.get("/login", renderLogin)
 
-router.post('/login', login)
+router.post("/login", login)
 
-router.get('/signup', renderSignup)
+router.get("/signup", renderSignup)
 
-router.post('/signup', signup)
+router.post("/signup", signup)
 
-router.get('/activation/:verify', active)
+router.get("/activation/:verify", active)
 
-router.get('/logout', (ctx, next) => {
+router.get("/logout", ctx => {
   ctx.session = null
-  ctx.redirect('/')
+  ctx.redirect("/")
 })
 
-router.get('/forgot', renderForgot)
+router.get("/forgot", renderForgot)
 
-router.post('/forgot', forgot)
+router.post("/forgot", forgot)
 
-router.get('/findpass/:verify', find)
+router.get("/findpass/:verify", find)
 
-router.post('/reset', reset)
+router.post("/reset", reset)
 
-router.get('/update', renderUpdate)
+router.get("/update", renderUpdate)
 
-router.post('/update', auth, update)
+router.post("/update", auth, update)
 
 export default router

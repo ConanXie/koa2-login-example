@@ -1,32 +1,37 @@
-import { createTransport } from 'nodemailer'
-import { email as emailConfig } from '../../config'
+import { createTransport, SendMailOptions } from "nodemailer"
 
-const sendEmail = option => {
-  const { address, subject, html } = option
-  const { service, sender, pass } = emailConfig
+export interface MailOptions extends SendMailOptions {
+  address: string
+}
+
+/**
+ * send email by nodemailer
+ * @param options
+ */
+export default function sendEmail(options: MailOptions): Promise<string> {
+  const { address, subject, html } = options
+  const { EMAIL_SERVICE, EMAIL_SENDER, EMAIL_PASSWORD } = process.env
 
   const transport = createTransport({
-    service,
     auth: {
-      user: sender,
-      pass
-    }
+      pass: EMAIL_PASSWORD,
+      user: EMAIL_SENDER,
+    },
+    service: EMAIL_SERVICE,
   })
   const mailOptions = {
-    from: sender,
-    to: address,
+    from: EMAIL_SENDER,
+    html,
     subject,
-    html
+    to: address,
   }
   return new Promise((resolve, reject) => {
     transport.sendMail(mailOptions, (error, info) => {
       if (error) {
-        reject(error)
+        reject(error.message)
       } else {
         resolve(`Message sent ${info.response}`)
       }
     })
   })
 }
-
-export default sendEmail
